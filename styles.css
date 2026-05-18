@@ -894,3 +894,227 @@ input[type="number"] {
 .maplibregl-canvas {
   background: #fbfdff !important;
 }
+
+
+/* =====================================================
+   TEMA VISUAL OSCURO · estilo geovisor institucional
+   Solo cambia apariencia: no modifica lógica ni capas
+===================================================== */
+
+:root {
+  --bg1: #07111f;
+  --bg2: #0b1626;
+  --card: rgba(13, 26, 44, 0.96);
+  --line: rgba(118, 154, 190, 0.20);
+  --text: #eef6ff;
+  --muted: #9fb4c8;
+  --accent: #38bdf8;
+  --low: #35a870;
+  --medium: #f0ab3b;
+  --high: #e45750;
+  --purple: #9b6cff;
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.34);
+}
+
+body {
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.11), transparent 34%),
+    linear-gradient(135deg, #07111f 0%, #0a1627 52%, #101b2c 100%) !important;
+}
+
+.academic-header {
+  background: linear-gradient(135deg, rgba(10,22,38,.98), rgba(13,28,48,.96)) !important;
+  border: 1px solid rgba(120,170,210,.18) !important;
+  box-shadow: 0 22px 44px rgba(0,0,0,.32) !important;
+}
+
+.academic-copy h1,
+h1,
+.card-head h2,
+.panel-title h3,
+.info-head h2,
+.legend h3 {
+  color: #f3f8ff !important;
+}
+
+.eyebrow,
+.info-head span,
+.meta-label,
+.brand-program {
+  color: #5cc8ff !important;
+}
+
+.seminar-line,
+.meta-card p,
+.brand-university,
+.brand-copy {
+  color: #dbeafe !important;
+}
+
+.meta-card,
+.brand-logo {
+  background: rgba(255,255,255,.06) !important;
+  border-color: rgba(150,190,220,.16) !important;
+}
+
+.brand-logo {
+  padding: 8px;
+}
+
+.map-card,
+.panel-card,
+.info-card,
+.legend,
+.formula-box,
+.mini-card,
+.result-highlight,
+.soil-card,
+.soil-grid div,
+.selected-barrio-card {
+  background: rgba(12,24,42,.96) !important;
+  border-color: rgba(120,170,210,.18) !important;
+  box-shadow: 0 18px 38px rgba(0,0,0,.30) !important;
+}
+
+.card-head p,
+.formula-box p,
+.note-text,
+.read-text,
+.legend-note,
+.summary-card p,
+.steps-list,
+.selected-barrio-card p,
+.soil-grid p,
+.meta-card p {
+  color: #b8cadb !important;
+}
+
+.field-label,
+.range-row,
+.field-group label,
+.mini-card small,
+.result-highlight small,
+.soil-top small,
+.soil-grid small,
+.selected-barrio-card small {
+  color: #93aabe !important;
+}
+
+.field-label strong,
+.result-highlight strong,
+.soil-top strong,
+.mini-card strong,
+.selected-barrio-card strong,
+.formula-main {
+  color: #f4f8ff !important;
+}
+
+.panel-title span {
+  background: rgba(56,189,248,.16) !important;
+  color: #77d6ff !important;
+  border: 1px solid rgba(56,189,248,.20);
+}
+
+.ghost-btn,
+.mode-btn,
+.secondary-btn {
+  background: rgba(20,37,58,.95) !important;
+  color: #e6f2ff !important;
+  border-color: rgba(130,175,210,.24) !important;
+}
+
+.mode-btn.active {
+  background: rgba(56,189,248,.18) !important;
+  border-color: rgba(56,189,248,.38) !important;
+  color: #a8e5ff !important;
+}
+
+.mode-btn.clear {
+  background: rgba(228,87,80,.14) !important;
+  color: #ffb4aa !important;
+  border-color: rgba(228,87,80,.30) !important;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8) !important;
+  color: #061120 !important;
+  box-shadow: 0 12px 26px rgba(14,165,233,.28) !important;
+}
+
+input[type="number"] {
+  background: rgba(5,15,28,.92) !important;
+  color: #f4f8ff !important;
+  border-color: rgba(130,175,210,.25) !important;
+}
+
+input[type="range"] {
+  accent-color: #38bdf8;
+}
+
+.map-wrapper {
+  background: #081422 !important;
+  border-color: rgba(120,170,210,.22) !important;
+}
+
+.maplibregl-ctrl-group {
+  background: rgba(12,24,42,.94) !important;
+  border: 1px solid rgba(120,170,210,.20) !important;
+}
+
+.maplibregl-ctrl button {
+  filter: invert(1) brightness(1.6);
+}
+
+.help-step {
+  background: rgba(12,24,42,.92) !important;
+  border-color: rgba(120,170,210,.18) !important;
+  color: #aebfd0 !important;
+}
+
+.active-step {
+  background: rgba(56,189,248,.14) !important;
+  border-color: rgba(56,189,248,.36) !important;
+  color: #f3f8ff !important;
+}
+
+.legend-item {
+  color: #d4e4f2 !important;
+}
+
+.legend-line {
+  background: #9b6cff !important;
+  box-shadow: 0 0 12px rgba(155,108,255,.55) !important;
+}
+
+.layer-status {
+  background: rgba(10,22,38,.94) !important;
+  color: #dff3ff !important;
+  border-color: rgba(56,189,248,.32) !important;
+}
+
+.maplibregl-popup-content {
+  background: #0d1a2c !important;
+  color: #eef6ff !important;
+  border: 1px solid rgba(120,170,210,.26);
+  border-radius: 12px !important;
+  box-shadow: 0 14px 28px rgba(0,0,0,.35) !important;
+}
+
+.maplibregl-popup-tip {
+  border-top-color: #0d1a2c !important;
+  border-bottom-color: #0d1a2c !important;
+}
+
+.footer {
+  color: #94a9bd !important;
+}
+
+@media (max-width: 840px) {
+  .academic-header,
+  .map-card,
+  .panel-card {
+    background: rgba(12,24,42,.98) !important;
+  }
+}
