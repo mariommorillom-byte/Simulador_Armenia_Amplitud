@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Armenia Sísmica Interactiva 3D</title>
+
+  <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="academic-header">
+    <div class="brand-block">
+      <img src="escudo_universidad_quindio.png" alt="Escudo Universidad del Quindío" class="brand-logo" />
+      <div class="brand-copy">
+        <p class="brand-university">Universidad del Quindío</p>
+        <p class="brand-program">Ingeniería Topográfica y Geomática</p>
+      </div>
+    </div>
+
+    <div class="academic-copy">
+      <p class="eyebrow">Proyecto de grado · Vulnerabilidad sísmica urbana</p>
+      <h1>Evaluación de la vulnerabilidad sísmica en el área urbana de Armenia (Quindío) a partir de información topográfica y geomática</h1>
+      <p class="seminar-line">Seminario: Legislación urbanística y planificación territorial</p>
+
+      <div class="academic-meta-grid">
+        <div class="meta-card">
+          <span class="meta-label">Equipo de trabajo</span>
+          <p>Mario Manuel Morillo Mora</p>
+          <p>Luis Miguel Bernal Barrios</p>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Director del proyecto</span>
+          <p>Aaron David Fiscal Ladino</p>
+          <p>Magíster en Contratación Estatal</p>
+          <p>Especialista (c) en Derecho Urbanístico</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-badge" id="heroBadge">
+      <span class="dot"></span>
+      Amplitud baja
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="viewer-grid">
+      <article class="map-card">
+        <div class="card-head">
+          <div>
+            <h2>Mapa interactivo 3D</h2>
+            <p>
+              Selecciona en orden el epicentro, la estación de referencia y el punto de análisis. También puedes rotar e inclinar el mapa para ver las edificaciones en volumen. La onda visual sale desde el epicentro y los edificios 3D reaccionan con movimiento y cambio de color según la amplitud cuando la onda los alcanza.
+            </p>
+          </div>
+          <div class="focus-buttons">
+            <button class="ghost-btn" id="focusRegionBtn">Ver región</button>
+            <button class="ghost-btn" id="focusArmeniaBtn">Ver Armenia</button>
+            <button class="ghost-btn" id="reset3dBtn">Vista 3D</button>
+            <button class="ghost-btn" id="resetNorthBtn">Norte</button>
+          </div>
+        </div>
+
+        <div class="map-wrapper">
+          <div id="map"></div>
+          <div id="intensityOverlay"></div>
+          <div id="layerStatus" class="layer-status">Cargando capas...</div>
+        </div>
+
+        <div class="map-help">
+          <div class="help-step active-step" id="stepEpicenter">1. Clic para ubicar el <strong>epicentro</strong></div>
+          <div class="help-step" id="stepReference">2. Clic para ubicar la <strong>estación de referencia</strong></div>
+          <div class="help-step" id="stepAnalysis">3. Clic para ubicar el <strong>punto de análisis</strong></div>
+        </div>
+
+        <div class="map-actions">
+          <button class="mode-btn active" data-mode="epicenter">Ubicar epicentro</button>
+          <button class="mode-btn" data-mode="reference">Ubicar estación</button>
+          <button class="mode-btn" data-mode="analysis">Ubicar punto de análisis</button>
+          <button class="mode-btn" id="toggleBuildingsBtn">Ocultar edificios</button>
+          <button class="mode-btn clear" id="clearPointsBtn">Limpiar puntos</button>
+        </div>
+
+        <div class="legend">
+          <h3>Leyenda</h3>
+          <div class="legend-item"><span class="legend-color low"></span> Vulnerabilidad baja / condiciones más favorables</div>
+          <div class="legend-item"><span class="legend-color medium"></span> Vulnerabilidad media</div>
+          <div class="legend-item"><span class="legend-color high"></span> Vulnerabilidad alta / condiciones menos favorables</div>
+          <div class="legend-item"><span class="legend-line"></span> Corredor real de la Falla de Armenia</div>
+          <div class="legend-item"><span class="building-legend"></span> Edificaciones simbólicas 3D</div>
+          <p class="legend-note">
+            La clasificación de vulnerabilidad es relativa. Sirve para comparar sectores entre sí,
+            no para calcular un daño exacto.
+          </p>
+        </div>
+
+
+  
+  <section class="info-section inside-map-card">
+    <article class="info-card use-guide">
+      <div class="info-head">
+        <span>Guía de uso</span>
+        <h2>Cómo utilizar el visor</h2>
+      </div>
+      <ol class="steps-list">
+        <li><strong>Ubica el epicentro:</strong> selecciona el botón <em>Ubicar epicentro</em> y haz clic sobre el mapa para definir el origen del evento sísmico.</li>
+        <li><strong>Selecciona la estación de referencia:</strong> marca el punto donde se conoce la amplitud A1 o desde donde se toma la referencia de registro.</li>
+        <li><strong>Ubica el punto de análisis:</strong> haz clic sobre el barrio o sector urbano que deseas evaluar.</li>
+        <li><strong>Ajusta la amplitud:</strong> modifica el control de A1 o escribe el valor en milímetros para observar cómo cambia la amplitud estimada A2.</li>
+        <li><strong>Simula la onda sísmica:</strong> presiona <em>Simular onda sísmica</em> para ver el avance de la onda desde el epicentro y la reacción visual de las edificaciones.</li>
+        <li><strong>Interpreta el resultado:</strong> revisa la vulnerabilidad del barrio seleccionado, la amplitud estimada y la respuesta visual de los edificios según el nivel de afectación.</li>
+      </ol>
+    </article>
+
+    <article class="info-card summary-card">
+      <div class="info-head">
+        <span>Resumen del estudio</span>
+        <h2>Descripción general</h2>
+      </div>
+      <p>
+        La vulnerabilidad sísmica en el área urbana de Armenia es un tema importante por las condiciones del territorio
+        y por los antecedentes sísmicos de la ciudad. Este estudio permite identificar sectores con mayor susceptibilidad
+        frente a un posible sismo, ya que no todas las zonas urbanas presentan las mismas características.
+      </p>
+      <p>
+        El uso de información topográfica y herramientas geomáticas ofrece una base útil para analizar el territorio y
+        aportar elementos que sirvan de apoyo a la planificación territorial y a la gestión del riesgo.
+      </p>
+    </article>
+  </section>
+
+
+      </article>
+
+      <aside class="sidebar">
+        <section class="panel-card">
+          <div class="panel-title">
+            <span>01</span>
+            <h3>Simulación visual</h3>
+          </div>
+
+          <label class="field-label">
+            Amplitud conocida A1
+            <strong><span id="amplitudeValue">21.9</span> mm</strong>
+          </label>
+
+          <input id="amplitudeSlider" type="range" min="0" max="100" value="21.9" step="0.1" />
+          <div class="range-row"><span>0 mm</span><span>50 mm</span><span>100 mm</span></div>
+
+          <div class="button-stack">
+            <button class="primary-btn" id="simulateBtn">Simular onda sísmica</button>
+            <button class="secondary-btn" id="stopBtn">Detener simulación</button>
+            <button class="secondary-btn" id="applyFormulaBtn">Actualizar con fórmula</button>
+            <button class="secondary-btn" id="loadCaseBtn">Cargar caso Quindío 1999</button>
+          </div>
+        </section>
+
+        <section class="panel-card">
+          <div class="panel-title">
+            <span>02</span>
+            <h3>Fórmula de amplitud</h3>
+          </div>
+
+          <div class="formula-box">
+            <div class="formula-main">A2 = A1 × (r1 / r2)</div>
+            <p>
+              A1 = amplitud conocida, r1 = distancia desde la fuente sísmica hasta la estación de referencia,
+              y r2 = distancia desde la fuente sísmica hasta el punto de análisis.
+            </p>
+          </div>
+
+          <div class="field-group">
+            <label for="knownAmplitudeInput">Amplitud conocida A1 (mm)</label>
+            <input id="knownAmplitudeInput" type="number" value="21.9" step="0.1" min="0" />
+          </div>
+
+          <div class="field-grid">
+            <div class="mini-card">
+              <small>r1 · Epicentro → estación</small>
+              <strong id="r1Value">—</strong>
+            </div>
+            <div class="mini-card">
+              <small>r2 · Epicentro → análisis</small>
+              <strong id="r2Value">—</strong>
+            </div>
+          </div>
+
+          <div class="result-highlight">
+            <small>Amplitud estimada A2</small>
+            <strong id="a2Value">—</strong>
+          </div>
+
+          <p class="note-text">
+            Esta relación es interpretativa. La fórmula estima la amplitud del movimiento sísmico;
+            luego ese valor se usa como apoyo para interpretar el comportamiento probable del suelo.
+          </p>
+        </section>
+
+        <section class="panel-card">
+          <div class="panel-title">
+            <span>03</span>
+            <h3>Lectura del suelo</h3>
+          </div>
+
+          <div class="soil-card">
+            <div class="soil-top">
+              <small>Nivel de movimiento</small>
+              <strong id="movementLevel">Bajo</strong>
+            </div>
+            <div class="soil-grid">
+              <div>
+                <small>Respuesta frente al sismo</small>
+                <p id="soilResponse">Más estable</p>
+              </div>
+              <div>
+                <small>Daño o afectación esperada</small>
+                <p id="amplitudeBehavior">Afectación baja o limitada</p>
+              </div>
+              <div>
+                <small>Tipología de suelo</small>
+                <p id="soilType">Sectores con pocas limitaciones relativas, pendientes suaves o moderadas y mejor estabilidad general</p>
+              </div>
+            </div>
+
+            <div class="selected-barrio-card">
+              <small>Barrio del punto de análisis</small>
+              <strong id="selectedBarrioName">Sin seleccionar</strong>
+              <p id="selectedBarrioInfo">Ubica el punto de análisis sobre un barrio para ver su vulnerabilidad relativa.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-card">
+          <div class="panel-title">
+            <span>04</span>
+            <h3>Interpretación integrada</h3>
+          </div>
+
+          <p class="read-text">
+            En este visor, la amplitud estimada y la lectura interpretativa del suelo se comparan
+            con la capa real de barrios. Además, se agregan edificaciones simbólicas en 3D para
+            representar visualmente cómo podría aumentar el nivel de afectación en sectores con
+            mayor vulnerabilidad relativa.
+          </p>
+
+          <p class="read-text">
+            Para rotar el mapa, mantén presionado el clic derecho o Ctrl + clic y mueve el mouse.
+            También puedes usar los botones de vista para volver a una perspectiva clara.
+          </p>
+        </section>
+      </aside>
+    </section>
+  </main>
+<footer class="footer">
+    <p>
+      Visualizador elaborado como apoyo del proyecto sobre vulnerabilidad sísmica relativa
+      en el área urbana de Armenia, Quindío.
+    </p>
+  </footer>
+
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <script src="datos_geograficos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
